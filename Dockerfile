@@ -1,20 +1,19 @@
-FROM php:8.2-cli
+FROM richarvey/nginx-php-fpm:3.1.6
 
-RUN apt-get update && apt-get install -y \
-    git unzip libzip-dev libpng-dev libonig-dev libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-WORKDIR /app
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+# Configuración de la imagen
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-RUN cp .env.example .env
-RUN php artisan key:generate --force
+# Configuración de Laravel
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
+# Permite que Composer corra como root dentro del contenedor
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-ENV PORT=10000
-EXPOSE 10000
-
-CMD php artisan serve --host=0.0.0.0 --port=${PORT}
+CMD ["/start.sh"]
