@@ -10,3 +10,6 @@ php artisan route:cache
 
 echo "Running migrations..."
 php artisan migrate --force
+
+echo "Seeding..."
+php artisan db:seed --class=FlorSeeder --force
