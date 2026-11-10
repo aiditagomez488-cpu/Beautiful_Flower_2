@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $flores = [
-        ['nombre' => 'Rosa', 'temporada' => 'Primavera'],
-        ['nombre' => 'Girasol', 'temporada' => 'Verano'],
-        ['nombre' => 'Crisantemo', 'temporada' => 'Otoño'],
+        (object) ['id' => 1, 'nombre' => 'Rosa', 'temporada' => 'Primavera'],
+        (object) ['id' => 2, 'nombre' => 'Girasol', 'temporada' => 'Verano'],
+        (object) ['id' => 3, 'nombre' => 'Crisantemo', 'temporada' => 'Otoño'],
     ];
 
     return view('flores.index', ['flores' => $flores]);
