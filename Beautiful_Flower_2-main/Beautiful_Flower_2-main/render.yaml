@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: beautiful-flower
-    runtime: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    
