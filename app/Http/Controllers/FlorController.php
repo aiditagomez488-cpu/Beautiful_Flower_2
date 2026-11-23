@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Flor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FlorController extends Controller
 {
     // Consultar todos los registros
     public function index()
     {
-        $flores = Flor::all();
+        $flores = Flor::latest()->get();
         return view('flores.index', compact('flores'));
     }
 
@@ -29,13 +30,20 @@ class FlorController extends Controller
     // Guardar nuevo registro
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'color' => 'required',
-            'temporada' => 'required',
+        $validated = $request->validate([
+            'nombre'      => 'required|string|max:255',
+            'color'       => 'required|string|max:255',
+            'temporada'   => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'imagen'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        Flor::create($request->only(['nombre', 'color', 'temporada', 'descripcion']));
+        if ($request->hasFile('imagen')) {
+            $validated['imagen'] = $request->file('imagen')->store('flores', 'public');
+        }
+
+        Flor::create($validated);
+
         return redirect()->route('flores.index')->with('success', 'Flor agregada correctamente.');
     }
 
@@ -48,20 +56,35 @@ class FlorController extends Controller
     // Actualizar registro
     public function update(Request $request, Flor $flor)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'color' => 'required',
-            'temporada' => 'required',
+        $validated = $request->validate([
+            'nombre'      => 'required|string|max:255',
+            'color'       => 'required|string|max:255',
+            'temporada'   => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'imagen'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $flor->update($request->all());
+        if ($request->hasFile('imagen')) {
+            if ($flor->imagen && Storage::disk('public')->exists($flor->imagen)) {
+                Storage::disk('public')->delete($flor->imagen);
+            }
+            $validated['imagen'] = $request->file('imagen')->store('flores', 'public');
+        }
+
+        $flor->update($validated);
+
         return redirect()->route('flores.index')->with('success', 'Flor actualizada correctamente.');
     }
 
     // Eliminar registro
     public function destroy(Flor $flor)
     {
+        if ($flor->imagen && Storage::disk('public')->exists($flor->imagen)) {
+            Storage::disk('public')->delete($flor->imagen);
+        }
+
         $flor->delete();
+
         return redirect()->route('flores.index')->with('success', 'Flor eliminada correctamente.');
     }
 }
