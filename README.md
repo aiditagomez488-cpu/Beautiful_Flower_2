@@ -57,3 +57,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Actualización de interfaz Beautiful Flower
+
+La pantalla principal ahora utiliza una presentación tipo aplicación: navegación superior, portada, indicadores del catálogo, búsqueda, filtros por color y tarjetas adaptables a móviles. Se mantienen las rutas y operaciones CRUD de Laravel.
+
+### Imágenes en producción
+
+El disco `public` de Laravel guarda archivos en el sistema de archivos del servidor. En Render, el sistema de archivos del servicio web es efímero por defecto; por ello, las imágenes cargadas pueden dejar de estar disponibles tras un reinicio o despliegue. `php artisan storage:link` crea el enlace simbólico, pero no convierte ese almacenamiento en persistente. Para conservar imágenes en producción, configura un servicio de almacenamiento externo (por ejemplo, Cloudinary o un bucket compatible con S3) y conecta Laravel a ese servicio mediante variables de entorno. No publiques claves ni credenciales en el repositorio.
+
+La vista del catálogo utiliza el accesor `imagen_url` del modelo y muestra una imagen de respaldo cuando el archivo local ya no existe. Esto evita tarjetas vacías, pero no sustituye la configuración de almacenamiento persistente.

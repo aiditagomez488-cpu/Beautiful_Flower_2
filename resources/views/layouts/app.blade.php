@@ -3,114 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beautiful Flower — Catálogo</title>
+    <meta name="theme-color" content="#f8f3ef">
+    <title>@yield('title', 'Beautiful Flower — Estudio floral')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --bg-page: #fbf4f4;
-            --bg-card: #ffffff;
-            --bg-soft: #f7e9eb;
-            --hero-dark: #26181c;
-            --hero-mid: #3a232a;
-            --pink-accent: #f4b8c8;
-            --pink-deep: #d9829b;
-            --text-main: #2d1e22;
-            --text-muted: #755d64;
-            --border-soft: rgba(217, 130, 155, 0.22);
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-        }
-
-        h1, h2, h3, .font-serif-floral {
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .navbar-floral {
-            background: linear-gradient(135deg, var(--hero-dark) 0%, var(--hero-mid) 100%);
-            border-bottom: 1px solid rgba(244, 184, 200, 0.35);
-            box-shadow: 0 8px 28px rgba(217, 130, 155, 0.16);
-            padding-top: 0.9rem;
-            padding-bottom: 0.9rem;
-        }
-
-        .navbar-floral .navbar-brand {
-            color: #fff5f7;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
-
-        .btn-pink-pill {
-            background-color: var(--pink-accent);
-            color: var(--hero-dark);
-            border: none;
-            border-radius: 999px;
-            font-weight: 600;
-            padding: 0.5rem 1.2rem;
-            box-shadow: 0 0 18px rgba(244, 184, 200, 0.45);
-            transition: all 0.2s ease;
-        }
-
-        .btn-pink-pill:hover {
-            background-color: #f9cbd7;
-            color: var(--hero-dark);
-            transform: translateY(-1px);
-        }
-
-        .btn-soft-outline {
-            background-color: var(--bg-soft);
-            color: var(--text-main);
-            border: 1px solid var(--border-soft);
-            border-radius: 999px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .btn-soft-outline:hover {
-            background-color: var(--pink-accent);
-            color: var(--hero-dark);
-        }
-
-        .floral-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-soft);
-            border-radius: 24px;
-            box-shadow: 0 12px 32px rgba(58, 35, 42, 0.06);
-        }
-
-        .alert-floral {
-            background-color: #fff0f4;
-            border: 1px solid var(--pink-accent);
-            color: var(--hero-dark);
-            border-radius: 16px;
-        }
+        :root{--paper:#f8f5f1;--white:#fff;--ink:#302b2b;--muted:#8b8180;--rose:#b87583;--rose-dark:#925765;--rose-pale:#f3e5e5;--sage:#899482;--line:#eee7e2;--shadow:0 14px 38px rgba(66,48,43,.07)}
+        *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh} h1,h2,h3,h4,.serif{font-family:'Playfair Display',serif}
+        .app-topbar{height:76px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;z-index:1000;backdrop-filter:blur(14px)}
+        .topbar-inner{max-width:1500px;width:100%;margin:auto;padding:0 34px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+        .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}.brand-mark{width:39px;height:39px;border-radius:14px;background:#f1e1e2;display:grid;place-items:center;font-size:21px}.brand-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;letter-spacing:-.4px}.brand-sub{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:-2px}
+        .top-nav{display:flex;align-items:center;gap:8px}.top-nav a{padding:10px 15px;border-radius:30px;color:#766c6b;text-decoration:none;font-size:13px;font-weight:600;transition:.2s}.top-nav a:hover,.top-nav a.active{background:#f6eded;color:var(--rose-dark)}
+        .top-action,.btn-pink-pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border:0;border-radius:30px;background:var(--rose);color:white;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 7px 18px rgba(184,117,131,.2);transition:.2s}.top-action:hover,.btn-pink-pill:hover{background:var(--rose-dark);color:#fff;transform:translateY(-1px)}
+        .app-main{max-width:1500px;margin:0 auto;padding:34px 34px 64px}.alert-floral{background:#f2e7e5;border:1px solid #e6d3d1;color:#62484a;border-radius:14px;padding:13px 18px}
+        .floral-panel{background:var(--white);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.btn-soft-outline{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:30px;font-weight:600}.btn-soft-outline:hover{background:var(--rose-pale);border-color:#e7cfd1;color:var(--rose-dark)}
+        .form-control{border-color:#e9e1dc;padding:12px 14px}.form-control:focus{border-color:#c9959e;box-shadow:0 0 0 .2rem rgba(184,117,131,.12)}
+        .app-footer{max-width:1500px;margin:0 auto;padding:0 34px 28px;color:#a49a96;font-size:11px;display:flex;justify-content:space-between;gap:12px}
+        @media(max-width:767px){.app-topbar{height:66px}.topbar-inner{padding:0 17px}.brand-name{font-size:18px}.brand-sub{font-size:9px}.top-nav{display:none}.top-action{padding:9px 13px;font-size:12px}.app-main{padding:22px 16px 42px}.app-footer{padding:0 17px 22px;flex-direction:column}}
     </style>
+    @stack('styles')
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-floral">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('flores.index') }}">₊⊹ Beautiful Flower 𓂃✍︎</a>
-            <a href="{{ route('flores.create') }}" class="btn btn-pink-pill">+ Agregar flor</a>
+    <header class="app-topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="{{ route('flores.index') }}">
+                <span class="brand-mark">✿</span>
+                <span><span class="brand-name">Beautiful Flower</span><span class="brand-sub">Estudio floral · Catálogo</span></span>
+            </a>
+            <nav class="top-nav" aria-label="Navegación principal">
+                <a href="{{ route('flores.index') }}" class="{{ request()->routeIs('flores.index') ? 'active' : '' }}">Inicio</a>
+                <a href="{{ route('flores.index') }}#catalogo">Colección</a>
+            </nav>
+            <a href="{{ route('flores.create') }}" class="top-action"><span aria-hidden="true">＋</span> Nueva flor</a>
         </div>
-    </nav>
+    </header>
 
-    <div class="container py-4 py-md-5">
+    <main class="app-main">
         @if(session('success'))
-            <div class="alert alert-floral mb-4">{{ session('success') }}</div>
+            <div class="alert alert-floral mb-4" role="status">✿ {{ session('success') }}</div>
         @endif
-
         @yield('content')
-    </div>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="app-footer"><span>✿ Beautiful Flower</span><span>Un pequeño espacio para celebrar la belleza de las flores.</span></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 </html>
